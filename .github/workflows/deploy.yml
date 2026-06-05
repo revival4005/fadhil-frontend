@@ -1,0 +1,45 @@
+name: Build And Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/fashion-frontend:latest
+  SERVER_COMPOSE_FILE: /path/to/compose.yml
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Docker image
+        run: docker build -t "$IMAGE_NAME" .
+
+      - name: Push Docker image
+        run: docker push "$IMAGE_NAME"
+
+      - name: Deploy on server
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            set -e
+            IMAGE_NAME="${{ env.IMAGE_NAME }}"
+            COMPOSE_FILE="${{ env.SERVER_COMPOSE_FILE }}"
+            docker pull "$IMAGE_NAME"
+            cd "$(dirname "$COMPOSE_FILE")"
+            docker compose -f "$COMPOSE_FILE" up -d --force-recreate
+            docker compose -f "$COMPOSE_FILE" logs --tail=50
