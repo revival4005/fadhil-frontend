@@ -1,10 +1,14 @@
 services:
   fadhil:
-    image: fadhil
+    image: fadhil/fashion-frontend:latest
     container_name: fadhil
+    env_file:
+      - .env
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL}
     ports:
       - "3002:3000"
     restart: unless-stopped

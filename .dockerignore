@@ -3,6 +3,7 @@ node_modules
 out
 .git
 .idea
+.env*
 npm-debug.log
 Dockerfile
 docker-compose.yml
