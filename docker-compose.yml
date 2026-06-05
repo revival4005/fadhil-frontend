@@ -1,6 +1,6 @@
 services:
   fadhil:
-    image: fadhil/fashion-frontend:latest
+    image: fadhilsaid/fashion-frontend:latest
     container_name: fadhil
     env_file:
       - .env
