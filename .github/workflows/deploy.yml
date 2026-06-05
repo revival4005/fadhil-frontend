@@ -7,7 +7,7 @@ on:
 
 env:
   IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/fashion-frontend:latest
-  SERVER_COMPOSE_FILE: /path/to/compose.yml
+  SERVER_COMPOSE_FILE: /home/revival/fadhil-frontend/compose.yml
 
 jobs:
   build-and-deploy:
