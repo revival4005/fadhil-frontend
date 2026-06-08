@@ -2,9 +2,9 @@ import React from "react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Fadhil Fashion | Clothing Store",
+  title: "FK Collection | Clothing Store",
   description:
-    "Order stylish clothes, shoes, accessories, and custom fashion pieces from Fadhil Fashion.",
+    "Order stylish clothes, shoes, accessories, and custom fashion pieces from FK Collection.",
 };
 
 const categories = [
@@ -93,7 +93,7 @@ export default function Home() {
                 Dress well. Order easily. Wear confidently.
               </h1>
               <p className="mb-7 max-w-[660px] text-lg leading-8 text-[#eadfd2]">
-                Fadhil Fashion brings stylish clothes, shoes, bags, and
+                FK Collection brings stylish clothes, shoes, bags, and
                 accessories into one clean shopping experience. Browse the
                 collection, choose your size, and send your order request.
               </p>
@@ -257,7 +257,7 @@ export default function Home() {
               <img
                 key={image}
                 src={image}
-                alt={`Fadhil Fashion lookbook outfit ${index + 1}`}
+                alt={`FK Collection lookbook outfit ${index + 1}`}
                 className="aspect-[3/4] w-full rounded-[1.4rem] object-cover"
               />
             ))}

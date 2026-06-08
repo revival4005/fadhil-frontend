@@ -16,10 +16,10 @@ const Footer: FC = () => {
           <div>
             <Link href="/" className="mb-5 flex items-center gap-3">
               <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-white text-xl font-bold text-[#1f2933]">
-                FF
+                FK
               </span>
               <span className="text-xl font-bold tracking-[0.12em]">
-                FADHIL FASHION
+                FK COLLECTION
               </span>
             </Link>
             <p className="max-w-364 leading-7 text-white/70">
@@ -66,7 +66,7 @@ const Footer: FC = () => {
           </div>
         </div>
         <div className="flex flex-col justify-between gap-3 py-6 text-sm text-white/60 md:flex-row">
-          <p>© 2026 Fadhil Fashion. All rights reserved.</p>
+          <p>© 2026 FK Collection. All rights reserved.</p>
           <p>Designed for online clothing orders and customer styling support.</p>
         </div>
       </div>

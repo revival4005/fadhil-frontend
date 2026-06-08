@@ -2,9 +2,9 @@ import React from "react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact | Fadhil Fashion",
+  title: "Contact | FK Collection",
   description:
-    "Contact Fadhil Fashion for clothing orders, sizing support, delivery, pickup, and custom fashion requests.",
+    "Contact FK Collection for clothing orders, sizing support, delivery, pickup, and custom fashion requests.",
 };
 
 const supportItems = [
@@ -49,7 +49,7 @@ export default function ContactPage() {
               Need clothes, sizing help, or a custom look?
             </h1>
             <p className="max-w-[560px] text-lg leading-8 text-[#eadfd2]">
-              Message Fadhil Fashion for product availability, outfit requests,
+              Message FK Collection for product availability, outfit requests,
               pickup, delivery, and fit support. Tell us what you want to wear
               and we will help you complete the order.
             </p>
