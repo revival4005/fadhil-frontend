@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 env:
   IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/fashion-frontend:latest
@@ -39,6 +40,8 @@ jobs:
             set -e
             IMAGE_NAME="${{ env.IMAGE_NAME }}"
             COMPOSE_FILE="${{ env.SERVER_COMPOSE_FILE }}"
+            echo "Deploying $IMAGE_NAME with $COMPOSE_FILE"
+            test -f "$COMPOSE_FILE"
             docker pull "$IMAGE_NAME"
             cd "$(dirname "$COMPOSE_FILE")"
             docker compose -f "$COMPOSE_FILE" up -d --force-recreate
