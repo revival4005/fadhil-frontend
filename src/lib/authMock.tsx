@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { apiRequest } from "./api";
 
 type SignInResult = { status?: number; error?: string; url?: string };
 
@@ -13,7 +14,19 @@ export const signIn = async (
         if (username === "admin" && password === "admin123") {
             return { status: 200 };
         }
-        return { error: "Invalid credentials" };
+
+        try {
+            await apiRequest("/auth/login", {
+                method: "POST",
+                body: JSON.stringify({
+                    email: username,
+                    password,
+                }),
+            });
+            return { status: 200 };
+        } catch (error: any) {
+            return { error: error.message || "Invalid credentials" };
+        }
     }
 
     // For social providers just simulate success (static sites can't perform OAuth)

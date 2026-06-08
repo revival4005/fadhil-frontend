@@ -1,5 +1,6 @@
 import React from "react";
 import { Metadata } from "next";
+import ContactMessageForm from "@/components/Forms/ContactMessageForm";
 
 export const metadata: Metadata = {
   title: "Contact | FK Collection",
@@ -136,57 +137,7 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <form className="grid gap-4 rounded-lg bg-[#ead6bd] p-6 shadow-[0_24px_70px_rgba(29,26,22,0.14)] md:p-8">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="grid gap-2">
-                <label className="text-sm font-bold text-[#1d1a16]">
-                  Full name
-                </label>
-                <input
-                  type="text"
-                  placeholder="Your name"
-                  className="rounded-lg border border-[#d7b995] bg-white px-4 py-3 text-[#1d1a16] outline-none focus:border-[#a36f3c]"
-                />
-              </div>
-              <div className="grid gap-2">
-                <label className="text-sm font-bold text-[#1d1a16]">
-                  Phone or email
-                </label>
-                <input
-                  type="text"
-                  placeholder="How should we reply?"
-                  className="rounded-lg border border-[#d7b995] bg-white px-4 py-3 text-[#1d1a16] outline-none focus:border-[#a36f3c]"
-                />
-              </div>
-            </div>
-            <div className="grid gap-2">
-              <label className="text-sm font-bold text-[#1d1a16]">
-                What do you need?
-              </label>
-              <select className="rounded-lg border border-[#d7b995] bg-white px-4 py-3 text-[#1d1a16] outline-none focus:border-[#a36f3c]">
-                <option>Order an item</option>
-                <option>Ask about sizing</option>
-                <option>Request delivery</option>
-                <option>Custom clothing request</option>
-              </select>
-            </div>
-            <div className="grid gap-2">
-              <label className="text-sm font-bold text-[#1d1a16]">
-                Message
-              </label>
-              <textarea
-                rows={6}
-                placeholder="Tell us the clothing item, size, color, quantity, location, or reference style."
-                className="resize-none rounded-lg border border-[#d7b995] bg-white px-4 py-3 text-[#1d1a16] outline-none focus:border-[#a36f3c]"
-              />
-            </div>
-            <button
-              type="submit"
-              className="rounded-lg bg-[#1d1a16] px-7 py-4 font-bold text-white transition hover:bg-[#a36f3c]"
-            >
-              Send message
-            </button>
-          </form>
+          <ContactMessageForm />
         </div>
       </section>
     </main>
