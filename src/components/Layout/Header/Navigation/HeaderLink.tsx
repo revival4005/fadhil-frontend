@@ -4,7 +4,10 @@ import Link from 'next/link';
 import { HeaderItem } from '../../../../types/menu';
 import { usePathname } from 'next/navigation';
 
-const HeaderLink: React.FC<{ item: HeaderItem }> = ({ item }) => {
+const HeaderLink: React.FC<{ item: HeaderItem; forceLight?: boolean }> = ({
+  item,
+  forceLight = false,
+}) => {
   const [submenuOpen, setSubmenuOpen] = useState(false);
   const path = usePathname()
   const handleMouseEnter = () => {
@@ -23,7 +26,7 @@ const HeaderLink: React.FC<{ item: HeaderItem }> = ({ item }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <Link href={item.href} className={`text-base py-3 flex font-medium transition hover:text-[#9b6b43] dark:hover:text-[#d2a679] ${path === item.href ? 'text-[#9b6b43] dark:!text-[#d2a679]' : ' text-[#1f2933] dark:text-white '} ${path.startsWith(`/${item.label.toLowerCase()}`) ? 'text-[#9b6b43] dark:!text-[#d2a679]' : null}`}>
+      <Link href={item.href} className={`text-base py-3 flex font-medium transition hover:text-[#9b6b43] ${forceLight ? "" : "dark:hover:text-[#d2a679]"} ${path === item.href ? `text-[#9b6b43] ${forceLight ? "" : "dark:!text-[#d2a679]"}` : `text-[#1f2933] ${forceLight ? "" : "dark:text-white"}`} ${path.startsWith(`/${item.label.toLowerCase()}`) ? `text-[#9b6b43] ${forceLight ? "" : "dark:!text-[#d2a679]"}` : null}`}>
         {item.label}
         {item.submenu && (
           <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
