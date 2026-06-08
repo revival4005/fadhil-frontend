@@ -7,8 +7,10 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/fashion-frontend:latest
+  IMAGE_NAME: fadhilsaid/fashion-frontend:latest
+  SERVER_HOST: 5.189.190.132
   SERVER_COMPOSE_FILE: /home/revival/fadhil-frontend/compose.yml
+  NEXT_PUBLIC_API_BASE_URL: http://5.189.190.132:8089/api
 
 jobs:
   build-and-deploy:
@@ -25,7 +27,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-        run: docker build -t "$IMAGE_NAME" .
+        run: docker build --build-arg NEXT_PUBLIC_API_BASE_URL="$NEXT_PUBLIC_API_BASE_URL" -t "$IMAGE_NAME" .
 
       - name: Push Docker image
         run: docker push "$IMAGE_NAME"
@@ -33,16 +35,32 @@ jobs:
       - name: Deploy on server
         uses: appleboy/ssh-action@v1.2.0
         with:
-          host: ${{ secrets.SERVER_HOST }}
+          host: ${{ secrets.SERVER_HOST || env.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             set -e
             IMAGE_NAME="${{ env.IMAGE_NAME }}"
             COMPOSE_FILE="${{ env.SERVER_COMPOSE_FILE }}"
+            APP_DIR="$(dirname "$COMPOSE_FILE")"
             echo "Deploying $IMAGE_NAME with $COMPOSE_FILE"
-            test -f "$COMPOSE_FILE"
+            mkdir -p "$APP_DIR"
+            cd "$APP_DIR"
+            cat > .env <<'EOF'
+            NEXT_PUBLIC_API_BASE_URL="${{ env.NEXT_PUBLIC_API_BASE_URL }}"
+            EOF
+            cat > compose.yml <<EOF
+            services:
+              fadhil:
+                image: $IMAGE_NAME
+                container_name: fadhil
+                env_file:
+                  - .env
+                ports:
+                  - "3002:3000"
+                restart: unless-stopped
+            EOF
+            docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
             docker pull "$IMAGE_NAME"
-            cd "$(dirname "$COMPOSE_FILE")"
             docker compose -f "$COMPOSE_FILE" up -d --force-recreate
             docker compose -f "$COMPOSE_FILE" logs --tail=50
